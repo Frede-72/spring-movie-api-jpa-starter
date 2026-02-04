@@ -1,5 +1,6 @@
 package ek.osnb.starter.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ek.osnb.starter.entity.Rating;
 import jakarta.persistence.*;
 
@@ -26,6 +27,11 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
     private List<Actor> actorList = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn (name = "movie_details_id")
+    @JsonManagedReference
+    private MovieDetails movieDetails;
 
     public Movie() {
     }
@@ -83,5 +89,13 @@ public class Movie {
 
     public void setActorList(List<Actor> actorList) {
         this.actorList = actorList;
+    }
+
+    public MovieDetails getMovieDetails() {
+        return movieDetails;
+    }
+
+    public void setMovieDetails(MovieDetails movieDetails) {
+        this.movieDetails = movieDetails;
     }
 }
